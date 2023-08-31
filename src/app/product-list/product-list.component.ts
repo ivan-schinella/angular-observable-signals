@@ -1,22 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ApiService, IProduct } from '../api.service';
 import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
 })
-export class ProductListComponent implements OnInit {
-
+export class ProductListComponent {
   public products: IProduct[] = [];
-  constructor(public api: ApiService, private castService: CartService) { }
+  constructor(public api: ApiService, private cartService: CartService) {}
 
-  ngOnInit() {
+   addToCart(product: IProduct) {
+    this.cartService.addProduct(product);
   }
-
-  addToCart(product: IProduct){
-    this.castService.addProductSignal(product);
-  }
-
 }

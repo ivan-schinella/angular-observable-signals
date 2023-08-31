@@ -1,17 +1,15 @@
-import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal, } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
+  public products$ = this.http.get<IProduct[]>(
+    'https://fakestoreapi.com/products'
+  );
 
-  public products = toSignal<IProduct[]>(this.http.get<IProduct[]>('https://fakestoreapi.com/products'));
-  public products$ = toObservable(this.products);
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(private http: HttpClient) {}
 }
 
 export interface IProduct {
@@ -28,5 +26,3 @@ interface IRating {
   rate: number;
   count: number;
 }
-
-
